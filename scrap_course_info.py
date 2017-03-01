@@ -14,7 +14,7 @@ output_file='cc_course_catlog.xls'
 #define website layout
 campus_url='http://catalog.tncc.edu/'
 course_catlog_url='http://catalog.tncc.edu/content.php?catoid=1&navoid=36'
-sem_nodeXpath='//div[@class="acalog-core"]/h2[contains(text(),"Fall") or contains(text(),"Spring")]/..'
+sem_nodeXpath='//div[@class="acalog-core"]/h2[contains(text(),"Fall") or contains(text(),"Spring") or contains(text(),"Summer")]/..'
 footnotesXpath='//div[@class="acalog-core"]/h2[contains(text(),"Total Minimum Credits")]/../p'
 
 #default programs
@@ -46,7 +46,7 @@ def derive_programs_courses(program_links,semXpath=sem_nodeXpath,ftXpath=footnot
         df=df.append(prog_df)
 
     #re-organize the df
-    sem_order={'Fall I': 1,'Spring I':2, 'Fall II': 3, 'Spring II': 4}
+    sem_order={'Fall I': 1,'Spring I':2, 'Summer I':3,'Fall II': 4, 'Spring II': 5,'Summer II':6}
     df['semester order']=df['suggest semester'].apply(lambda sem: sem_order[sem])
     df.sort_values(['program','semester order'],inplace=True)
     df=df[['program','suggest semester','course code','course name','course credits','suggested courses']]
